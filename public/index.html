@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Spot Trend | AI 로컬 여행 큐레이터</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- GNB 내비게이션 (우측 상단 언어 전환 토글 추가) -->
+  <nav class="site-nav">
+    <a href="./index.html" class="nav-brand">🏯 K-Spot Trend</a>
+    <ul class="nav-menu">
+      <li><a href="./index.html" class="nav-link active" data-i18n="nav_ai">AI 코스 추천</a></li>
+      <li><a href="./spots.html" class="nav-link" data-i18n="nav_spots">로컬 핫플</a></li>
+      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">동선 지도</a></li>
+      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">여행 가이드</a></li>
+      <li><a href="./saved.html" class="nav-link" data-i18n="nav_saved">내 보관함</a></li>
+    </ul>
+
+    <!-- 언어 전환 버튼 -->
+    <button type="button" id="lang-toggle-btn" class="lang-btn">EN</button>
+  </nav>
+
+  <div class="app-container">
+    <header class="site-header">
+      <div class="site-badge" data-i18n="badge">⚡ K-Culture & MZ Hotspots</div>
+      <h1 class="site-title" data-i18n="hero_title">한국의 숨은 트렌드를 걷다</h1>
+      <p class="site-desc" data-i18n="hero_desc">뻔한 관광지 대신, 현지인이 찾는 1일 감성 코스와 인생샷 명소를 추천합니다.</p>
+    </header>
+
+    <section class="form-section">
+      <!-- 1. 도시 선택 -->
+      <label class="section-label" data-i18n="label_city">1. 여행할 도시 선택</label>
+      
+      <div class="search-filter-bar">
+        <select id="region-select" class="custom-select">
+          <option value="" data-i18n="opt_all">전국 권역별 찾기</option>
+          <option value="seoul" data-i18n="opt_seoul">수도권 (서울, 수원, 인천)</option>
+          <option value="gangwon" data-i18n="opt_gangwon">강원권 (강릉, 속초, 양양)</option>
+          <option value="yeongnam" data-i18n="opt_yeongnam">영남권 (경주, 부산, 안동)</option>
+          <option value="honam" data-i18n="opt_honam">호남권 (전주, 여수, 순천)</option>
+          <option value="jeju" data-i18n="opt_jeju">제주도 (제주시, 서귀포)</option>
+        </select>
+        
+        <input 
+          type="text" 
+          id="custom-city-input" 
+          class="custom-input" 
+          placeholder="도시나 동네 직접 입력 (예: 수원 행궁동, 양양, 여수)"
+        />
+      </div>
+
+      <!-- 빠른 선택 칩 -->
+      <div class="chip-grid" id="city-group">
+        <button type="button" class="chip-btn active" data-value="gangneung" data-i18n="city_gangneung">강릉</button>
+        <button type="button" class="chip-btn" data-value="gyeongju" data-i18n="city_gyeongju">경주</button>
+        <button type="button" class="chip-btn" data-value="andong" data-i18n="city_andong">안동</button>
+        <button type="button" class="chip-btn" data-value="seoul" data-i18n="city_seoul">서울 성수·홍대</button>
+        <button type="button" class="chip-btn" data-value="busan" data-i18n="city_busan">부산 해운대·전포</button>
+        <button type="button" class="chip-btn" data-value="jeonju" data-i18n="city_jeonju">전주 한옥마을</button>
+        <button type="button" class="chip-btn" data-value="jeju" data-i18n="city_jeju">제주 애월·서귀포</button>
+      </div>
+
+      <!-- 2. 여행 테마 선택 -->
+      <label class="section-label" data-i18n="label_vibe">2. 여행 분위기 선택</label>
+      <div class="chip-grid" id="vibe-group">
+        <button type="button" class="chip-btn active" data-value="kpop" data-i18n="vibe_kpop">K-Pop & 아이돌 성지순례</button>
+        <button type="button" class="chip-btn" data-value="cafe" data-i18n="vibe_cafe">감성 카페 & 디저트 투어</button>
+        <button type="button" class="chip-btn" data-value="foodie" data-i18n="vibe_foodie">로컬 길거리 미식 탐방</button>
+        <button type="button" class="chip-btn" data-value="photo" data-i18n="vibe_photo">인생샷 & 포토존 헌터</button>
+      </div>
+
+      <!-- 추천 생성 버튼 -->
+      <button type="button" id="generate-btn" class="submit-btn" data-i18n="submit_btn">
+        맞춤 1일 코스 생성하기 ✨
+      </button>
+    </section>
+
+    <!-- 로딩 박스 -->
+    <div id="loading-box" class="loading-box">
+      <div class="spinner"></div>
+      <p style="color: var(--text-sub); font-size: 0.95rem;" data-i18n="loading_text">현지인들이 아끼는 핫플레이스를 조화롭게 엮고 있습니다...</p>
+    </div>
+
+    <!-- 결과 화면 -->
+    <section id="result-container" class="result-container">
+      <div class="result-header">
+        <h2 id="result-title" class="result-title" data-i18n="result_title">추천 1일 코스</h2>
+        <p id="result-theme" style="color: var(--palace-crimson); font-weight: 700; font-size: 0.95rem;"></p>
+      </div>
+      <div id="timeline-list" class="timeline"></div>
+    </section>
+  </div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

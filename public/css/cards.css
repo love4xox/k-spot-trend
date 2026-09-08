@@ -1,0 +1,105 @@
+.result-container {
+    display: none;
+    margin-top: 2.5rem;
+  }
+  
+  .result-container.active {
+    display: block;
+  }
+  
+  .result-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  .result-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--palace-indigo);
+    margin-bottom: 0.35rem;
+  }
+  
+  /* 궁궐 돌담 타임라인 */
+  .timeline {
+    position: relative;
+    padding-left: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: var(--border-color);
+  }
+  
+  /* 스팟 카드 */
+  .spot-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 4px 14px rgba(31, 32, 34, 0.04);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .spot-card::before {
+    content: '';
+    position: absolute;
+    left: -2.25rem;
+    top: 1.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--palace-crimson);
+    border: 3px solid var(--bg-main);
+  }
+  
+  .spot-card:hover {
+    border-color: var(--palace-crimson);
+    transform: translateX(4px);
+  }
+  
+  .spot-time {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--palace-gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  
+  .spot-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--palace-indigo);
+    margin-bottom: 0.6rem;
+  }
+  
+  .spot-desc {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  /* 사진 팁 뱃지 */
+  .spot-tip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: #fdfbf7;
+    border: 1px solid var(--border-color);
+    color: var(--palace-crimson);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+  }

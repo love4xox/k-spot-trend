@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trendy Spots Gallery | K-Spot Trend</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(31, 32, 34, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .gallery-tag {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--palace-gold);
+      background: #fdfbf7;
+      border: 1px solid var(--border-color);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.75rem;
+    }
+    .gallery-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--palace-indigo);
+      margin-bottom: 0.5rem;
+    }
+    .gallery-tip {
+      font-size: 0.85rem;
+      color: var(--palace-crimson);
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- GNB 내비게이션 -->
+  <nav class="site-nav">
+    <a href="./index.html" class="nav-brand">🏯 K-Spot Trend</a>
+    <ul class="nav-menu">
+      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI Curator</a></li>
+      <li><a href="./spots.html" class="nav-link active" data-i18n="nav_spots">Spots Gallery</a></li>
+      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">Interactive Map</a></li>
+      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">Travel Guide</a></li>
+      <li><a href="./saved.html" class="nav-link" data-i18n="nav_saved">My Routes</a></li>
+    </ul>
+
+    <!-- 언어 전환 버튼 -->
+    <button type="button" id="lang-toggle-btn" class="lang-btn">EN</button>
+  </nav>
+
+  <div class="app-container">
+    <header class="site-header">
+      <div class="site-badge" data-i18n="spots_badge">📸 Curated Directory</div>
+      <h1 class="site-title" data-i18n="spots_title">Local Hotspots Directory</h1>
+      <p class="site-desc" data-i18n="spots_desc">Discover handpicked aesthetic spots verified by Korean locals.</p>
+    </header>
+
+    <div class="chip-grid" style="justify-content: center;">
+      <button type="button" class="chip-btn active" onclick="filterCity('all')" data-i18n="spots_all">All Regions</button>
+      <button type="button" class="chip-btn" onclick="filterCity('gangneung')" data-i18n="city_gangneung">Gangneung</button>
+      <button type="button" class="chip-btn" onclick="filterCity('gyeongju')" data-i18n="city_gyeongju">Gyeongju</button>
+      <button type="button" class="chip-btn" onclick="filterCity('andong')" data-i18n="city_andong">Andong</button>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Gangneung -->
+      <article class="gallery-card" data-city="gangneung">
+        <div>
+          <span class="gallery-tag">K-Pop / BTS</span>
+          <h3 class="gallery-name">Jumunjin BTS Bus Stop</h3>
+          <p class="spot-desc">Iconic album jacket shoot location facing the deep East Sea.</p>
+        </div>
+        <div class="gallery-tip">📸 Shoot looking toward the sea at 10 AM.</div>
+      </article>
+
+      <article class="gallery-card" data-city="gangneung">
+        <div>
+          <span class="gallery-tag">Aesthetic Cafe</span>
+          <h3 class="gallery-name">Anmok Coffee Street</h3>
+          <p class="spot-desc">A seaside promenade packed with specialty roasters and ocean-view rooftops.</p>
+        </div>
+        <div class="gallery-tip">📸 Sunset views from the 4th-floor terrace.</div>
+      </article>
+
+      <!-- Gyeongju -->
+      <article class="gallery-card" data-city="gyeongju">
+        <div>
+          <span class="gallery-tag">Retro & MZ Vibe</span>
+          <h3 class="gallery-name">Hwangridan-gil</h3>
+          <p class="spot-desc">Traditional Hanok alleys revamped with trendy dessert bars and vintage shops.</p>
+        </div>
+        <div class="gallery-tip">📸 Capture golden hour light through tile roofs.</div>
+      </article>
+
+      <article class="gallery-card" data-city="gyeongju">
+        <div>
+          <span class="gallery-tag">Heritage / Night View</span>
+          <h3 class="gallery-name">Donggung Palace & Wolji Pond</h3>
+          <p class="spot-desc">Stunning ancient royal pond reflecting lit pavilion architectures at night.</p>
+        </div>
+        <div class="gallery-tip">📸 Night reflection shot right after twilight.</div>
+      </article>
+
+      <!-- Andong -->
+      <article class="gallery-card" data-city="andong">
+        <div>
+          <span class="gallery-tag">UNESCO Heritage</span>
+          <h3 class="gallery-name">Hahoe Folk Village</h3>
+          <p class="spot-desc">Living historic clan village surrounded by the Nakdong River.</p>
+        </div>
+        <div class="gallery-tip">📸 Panoramic view from Buyongdae Cliff.</div>
+      </article>
+
+      <article class="gallery-card" data-city="andong">
+        <div>
+          <span class="gallery-tag">Local Gourmet</span>
+          <h3 class="gallery-name">Andong Jjimdak Alley</h3>
+          <p class="spot-desc">Historic street food market famous for soy-braised chicken noodles.</p>
+        </div>
+        <div class="gallery-tip">📸 Top-down food snap of the steaming platter.</div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    function filterCity(city) {
+      const buttons = document.querySelectorAll('.chip-grid .chip-btn');
+      buttons.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.gallery-card');
+      cards.forEach(card => {
+        if (city === 'all' || card.getAttribute('data-city') === city) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <!-- 다국어 지원 연동 스크립트 -->
+  <script type="module">
+    import { setupLanguageToggle } from './js/lang.js';
+    document.addEventListener('DOMContentLoaded', setupLanguageToggle);
+  </script>
+</body>
+</html>

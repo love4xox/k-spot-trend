@@ -1,0 +1,102 @@
+.app-container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 3.5rem 1.25rem 6rem;
+  }
+  
+  .site-header {
+    text-align: center;
+    margin-bottom: 3.25rem;
+  }
+  
+  .site-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    color: var(--palace-crimson);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    margin-bottom: 1.2rem;
+  }
+  
+  .site-title {
+    font-size: clamp(2.1rem, 5vw, 2.9rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--palace-indigo);
+    margin-bottom: 0.85rem;
+  }
+  
+  .site-desc {
+    color: var(--text-sub);
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  /* 글로벌 내비게이션 바 (GNB) */
+.site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .nav-brand {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--palace-indigo);
+    letter-spacing: -0.02em;
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-sub);
+    transition: color 0.2s ease;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  
+  .nav-link:hover {
+    color: var(--palace-crimson);
+  }
+  
+  .nav-link.active {
+    color: var(--palace-crimson);
+    font-weight: 700;
+    border-bottom: 2px solid var(--palace-crimson);
+  }
+
+  .lang-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--palace-crimson);
+    border: 1.5px solid var(--palace-crimson);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    transition: all 0.2s ease;
+  }
+  
+  .lang-btn:hover {
+    background: var(--palace-crimson);
+    color: #fff;
+  }

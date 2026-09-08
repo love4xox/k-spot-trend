@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Route Map | K-Spot Trend</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    .map-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-top: 4px solid var(--palace-crimson);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: 0 12px 30px -10px rgba(31, 32, 34, 0.08);
+      margin-top: 2rem;
+    }
+
+    .city-nav-chips {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    /* 노선 다이어그램 스타일 */
+    .route-visualizer {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      background: #fdfbf7;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 2rem;
+    }
+
+    .route-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    .route-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 36px;
+      bottom: -18px;
+      width: 2px;
+      border-left: 2px dashed var(--palace-gold);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--palace-crimson);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .step-content {
+      flex: 1;
+      padding-top: 0.2rem;
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--palace-indigo);
+    }
+
+    .step-info {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-top: 0.25rem;
+    }
+
+    .transit-badge {
+      display: inline-block;
+      margin-top: 0.4rem;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--palace-pine);
+      background: #eef7f4;
+      border-radius: 4px;
+    }
+
+    /* 지도 연동 안내 박스 */
+    .map-external-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .external-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .external-btn:hover {
+      border-color: var(--palace-crimson);
+      color: var(--palace-crimson);
+      background: #fdfbf7;
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="./index.html" class="nav-brand">🏯 K-Spot Trend</a>
+    <ul class="nav-menu">
+      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI Curator</a></li>
+      <li><a href="./spots.html" class="nav-link" data-i18n="nav_spots">Spots Gallery</a></li>
+      <li><a href="./map.html" class="nav-link active" data-i18n="nav_map">Interactive Map</a></li>
+      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">Travel Guide</a></li>
+      <li><a href="./saved.html" class="nav-link" data-i18n="nav_saved">My Routes</a></li>
+    </ul>
+
+    <button type="button" id="lang-toggle-btn" class="lang-btn">EN</button>
+  </nav>
+
+  <div class="app-container">
+    <header class="site-header">
+      <div class="site-badge" data-i18n="map_badge">🗺️ Route Visualizer</div>
+      <h1 class="site-title" data-i18n="map_title">Explore Travel Circuits</h1>
+      <p class="site-desc" data-i18n="map_desc">Visual 1-day transit flow connecting iconic MZ landmarks seamlessly.</p>
+    </header>
+
+    <div class="city-nav-chips">
+      <button type="button" class="chip-btn active" onclick="switchRoute('gangneung')">Gangneung Circuit</button>
+      <button type="button" class="chip-btn" onclick="switchRoute('gyeongju')">Gyeongju Circuit</button>
+      <button type="button" class="chip-btn" onclick="switchRoute('andong')">Andong Circuit</button>
+    </div>
+
+    <div class="map-wrapper">
+      <div id="route-container" class="route-visualizer">
+        </div>
+
+      <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+        <h4 style="font-size: 0.9rem; font-weight: 800; color: var(--palace-indigo); margin-bottom: 0.5rem;">
+          📌 Open in Recommended Navigation:
+        </h4>
+        <div class="map-external-links">
+          <a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="external-btn">
+            🟢 Open Naver Map (Best for Korea)
+          </a>
+          <a href="https://map.kakao.com" target="_blank" rel="noopener noreferrer" class="external-btn">
+            🟡 Open KakaoMap (Real-time Bus)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const routesData = {
+      gangneung: [
+        { title: "Gangneung KTX Station", info: "Start your journey at the high-speed rail hub", transit: "🚖 20 min taxi / Bus #300" },
+        { title: "Jumunjin BTS Bus Stop", info: "Iconic oceanfront photo spot (BTS 'You Never Walk Alone')", transit: "🚌 25 min scenic coastal bus" },
+        { title: "Sacheon Beach & Forest Cafe", info: "Artisan bakeries tucked between pine groves and white sand", transit: "🚖 15 min ride" },
+        { title: "Anmok Coffee Street", info: "Rooftop espresso with panoramic sunset views over East Sea", transit: "🏁 Tour Complete" }
+      ],
+      gyeongju: [
+        { title: "Singyeongju KTX Station", info: "Arrival at the ancient Millennium capital", transit: "🚌 20 min via City Express #700" },
+        { title: "Hwangridan-gil Hanok Alleys", info: "Modern cafe culture inside preserved Joseon-style hanoks", transit: "🚶 10 min walking route" },
+        { title: "Daereungwon Ancient Tombs", info: "Iconic photo point between historic Silla royal mounds", transit: "🚶 15 min evening stroll" },
+        { title: "Donggung Palace & Wolji Pond", info: "Breathtaking royal pavilion lighting reflections on water", transit: "🏁 Tour Complete" }
+      ],
+      andong: [
+        { title: "Andong KTX Station", info: "Gateway to classic Confucian heritage", transit: "🚌 40 min via Bus #210" },
+        { title: "Hahoe Folk Village", info: "UNESCO World Heritage site with live mask dance traditions", transit: "⛵ River Ferry + 10 min hike" },
+        { title: "Buyongdae Cliff", info: "Overlook showing the full river-embraced lotus shape of the village", transit: "🚌 35 min return bus" },
+        { title: "Andong Jjimdak Market Alley", info: "Famous steaming soy-glazed savory chicken feast", transit: "🏁 Tour Complete" }
+      ]
+    };
+
+    function renderRoute(cityKey) {
+      const container = document.getElementById('route-container');
+      const steps = routesData[cityKey] || [];
+      
+      container.innerHTML = steps.map((s, idx) => `
+        <div class="route-step">
+          <div class="step-number">${idx + 1}</div>
+          <div class="step-content">
+            <div class="step-title">${s.title}</div>
+            <div class="step-info">${s.info}</div>
+            <span class="transit-badge">${s.transit}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchRoute(cityKey) {
+      document.querySelectorAll('.city-nav-chips .chip-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(cityKey)) {
+          btn.classList.add('active');
+        }
+      });
+      renderRoute(cityKey);
+    }
+
+    renderRoute('gangneung');
+  </script>
+
+  <script type="module">
+    import { setupLanguageToggle } from './js/lang.js';
+    document.addEventListener('DOMContentLoaded', setupLanguageToggle);
+  </script>
+</body>
+</html>

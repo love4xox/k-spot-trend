@@ -1,0 +1,169 @@
+/* 창호문 격자 느낌의 단아한 폼 카드 */
+.form-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--palace-crimson); /* 궁궐 기와 처마 라인 포인트 */
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 12px 30px -10px rgba(31, 32, 34, 0.08);
+  }
+  
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--palace-indigo);
+    margin-bottom: 0.9rem;
+  }
+  
+  .section-label::before {
+    content: '◆';
+    font-size: 0.65rem;
+    color: var(--palace-gold);
+  }
+  
+  /* 태그 칩 그리드 */
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1.85rem;
+  }
+  
+  .chip-btn {
+    padding: 0.6rem 1.2rem;
+    background: #fdfbf7;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-sub);
+    font-size: 0.92rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .chip-btn:hover {
+    border-color: var(--palace-gold);
+    color: var(--text-main);
+    background: #fff;
+  }
+  
+  .chip-btn.active {
+    background: #fff;
+    border: 1.5px solid var(--palace-crimson);
+    color: var(--palace-crimson);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(140, 40, 38, 0.12);
+  }
+  
+  /* 궁궐 현판 모티브 액션 버튼 */
+  .submit-btn {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--palace-crimson);
+    color: #fcfaf6;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(194, 155, 56, 0.3);
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 18px rgba(140, 40, 38, 0.25);
+  }
+  
+  .submit-btn:hover {
+    background: var(--palace-crimson-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(140, 40, 38, 0.35);
+  }
+  
+  .submit-btn:disabled {
+    background: var(--text-muted);
+    border-color: transparent;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* 로딩 스피너 */
+  .loading-box {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  
+  .loading-box.active {
+    display: block;
+  }
+  
+  .spinner {
+    width: 42px;
+    height: 42px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--palace-crimson);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 1.25rem;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* 하이브리드 검색 & 필터 바 */
+.search-filter-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-select {
+    flex: 0 0 190px;
+    padding: 0.75rem 1rem;
+    background: #fdfbf7;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  
+  .custom-select:focus {
+    border-color: var(--palace-crimson);
+  }
+  
+  .custom-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: #fdfbf7;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .custom-input:focus {
+    background: #fff;
+    border-color: var(--palace-crimson);
+    box-shadow: 0 0 0 3px rgba(140, 40, 38, 0.08);
+  }
+  
+  @media (max-width: 640px) {
+    .search-filter-bar {
+      flex-direction: column;
+    }
+    .custom-select {
+      width: 100%;
+      flex: auto;
+    }
+  }
