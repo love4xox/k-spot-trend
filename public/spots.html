@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,6 +40,11 @@
       color: var(--palace-indigo);
       margin-bottom: 0.5rem;
     }
+    .spot-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
     .gallery-tip {
       font-size: 0.85rem;
       color: var(--palace-crimson);
@@ -53,11 +58,11 @@
   <nav class="site-nav">
     <a href="./index.html" class="nav-brand">🏯 K-Spot Trend</a>
     <ul class="nav-menu">
-      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI Curator</a></li>
-      <li><a href="./spots.html" class="nav-link active" data-i18n="nav_spots">Spots Gallery</a></li>
-      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">Interactive Map</a></li>
-      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">Travel Guide</a></li>
-      <li><a href="./saved.html" class="nav-link" data-i18n="nav_saved">My Routes</a></li>
+      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI 코스 추천</a></li>
+      <li><a href="./spots.html" class="nav-link active" data-i18n="nav_spots">로컬 핫플</a></li>
+      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">동선 지도</a></li>
+      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">여행 가이드</a></li>
+      <li><a href="./saved.html" class="nav-link" data-i18n="nav_saved">내 보관함</a></li>
     </ul>
 
     <!-- 언어 전환 버튼 -->
@@ -66,83 +71,83 @@
 
   <div class="app-container">
     <header class="site-header">
-      <div class="site-badge" data-i18n="spots_badge">📸 Curated Directory</div>
-      <h1 class="site-title" data-i18n="spots_title">Local Hotspots Directory</h1>
-      <p class="site-desc" data-i18n="spots_desc">Discover handpicked aesthetic spots verified by Korean locals.</p>
+      <div class="site-badge" data-i18n="spots_badge">📸 엄선된 로컬 디렉토리</div>
+      <h1 class="site-title" data-i18n="spots_title">지역별 트렌드 명소 모아보기</h1>
+      <p class="site-desc" data-i18n="spots_desc">한국 로컬들이 직접 검증한 감성 스팟을 둘러보세요.</p>
     </header>
 
     <div class="chip-grid" style="justify-content: center;">
-      <button type="button" class="chip-btn active" onclick="filterCity('all')" data-i18n="spots_all">All Regions</button>
-      <button type="button" class="chip-btn" onclick="filterCity('gangneung')" data-i18n="city_gangneung">Gangneung</button>
-      <button type="button" class="chip-btn" onclick="filterCity('gyeongju')" data-i18n="city_gyeongju">Gyeongju</button>
-      <button type="button" class="chip-btn" onclick="filterCity('andong')" data-i18n="city_andong">Andong</button>
+      <button type="button" class="chip-btn active" onclick="filterCity('all', event)" data-i18n="spots_all">전체 지역</button>
+      <button type="button" class="chip-btn" onclick="filterCity('gangneung', event)" data-i18n="city_gangneung">강릉</button>
+      <button type="button" class="chip-btn" onclick="filterCity('gyeongju', event)" data-i18n="city_gyeongju">경주</button>
+      <button type="button" class="chip-btn" onclick="filterCity('andong', event)" data-i18n="city_andong">안동</button>
     </div>
 
     <div class="gallery-grid" id="gallery-grid">
       <!-- Gangneung -->
       <article class="gallery-card" data-city="gangneung">
         <div>
-          <span class="gallery-tag">K-Pop / BTS</span>
-          <h3 class="gallery-name">Jumunjin BTS Bus Stop</h3>
-          <p class="spot-desc">Iconic album jacket shoot location facing the deep East Sea.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_bts">K-Pop / BTS</span>
+          <h3 class="gallery-name" data-i18n="spot_name_bts">주문진 BTS 버스정류장</h3>
+          <p class="spot-desc" data-i18n="spot_desc_bts">푸른 동해 바다를 마주보고 서 있는 아이코닉한 앨범 재킷 촬영지.</p>
         </div>
-        <div class="gallery-tip">📸 Shoot looking toward the sea at 10 AM.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_bts">📸 오전 10시경 햇살과 바다를 함께 담아보세요.</div>
       </article>
 
       <article class="gallery-card" data-city="gangneung">
         <div>
-          <span class="gallery-tag">Aesthetic Cafe</span>
-          <h3 class="gallery-name">Anmok Coffee Street</h3>
-          <p class="spot-desc">A seaside promenade packed with specialty roasters and ocean-view rooftops.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_anmok">감성 카페 거리</span>
+          <h3 class="gallery-name" data-i18n="spot_name_anmok">안목해변 커피거리</h3>
+          <p class="spot-desc" data-i18n="spot_desc_anmok">스페셜티 로스터리와 오션뷰 루프탑이 늘어선 감성 해안 산책로.</p>
         </div>
-        <div class="gallery-tip">📸 Sunset views from the 4th-floor terrace.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_anmok">📸 4층 테라스에서 바다 일몰을 배경으로 촬영하세요.</div>
       </article>
 
       <!-- Gyeongju -->
       <article class="gallery-card" data-city="gyeongju">
         <div>
-          <span class="gallery-tag">Retro & MZ Vibe</span>
-          <h3 class="gallery-name">Hwangridan-gil</h3>
-          <p class="spot-desc">Traditional Hanok alleys revamped with trendy dessert bars and vintage shops.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_hwang">레트로 & MZ 감성</span>
+          <h3 class="gallery-name" data-i18n="spot_name_hwang">황리단길</h3>
+          <p class="spot-desc" data-i18n="spot_desc_hwang">전통 한옥 골목과 트렌디한 디저트 바, 빈티지 숍이 어우러진 거리.</p>
         </div>
-        <div class="gallery-tip">📸 Capture golden hour light through tile roofs.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_hwang">📸 기와지붕 사이로 쏟아지는 노을 골든아워를 담아보세요.</div>
       </article>
 
       <article class="gallery-card" data-city="gyeongju">
         <div>
-          <span class="gallery-tag">Heritage / Night View</span>
-          <h3 class="gallery-name">Donggung Palace & Wolji Pond</h3>
-          <p class="spot-desc">Stunning ancient royal pond reflecting lit pavilion architectures at night.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_dong">신라 유산 / 야경</span>
+          <h3 class="gallery-name" data-i18n="spot_name_dong">동궁과 월지</h3>
+          <p class="spot-desc" data-i18n="spot_desc_dong">밤하늘 아래 화려한 조명과 연못 물빛에 투영되는 천년 궁궐 누각.</p>
         </div>
-        <div class="gallery-tip">📸 Night reflection shot right after twilight.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_dong">📸 일몰 직후 매직아워에 연못 반영 샷을 남겨보세요.</div>
       </article>
 
       <!-- Andong -->
       <article class="gallery-card" data-city="andong">
         <div>
-          <span class="gallery-tag">UNESCO Heritage</span>
-          <h3 class="gallery-name">Hahoe Folk Village</h3>
-          <p class="spot-desc">Living historic clan village surrounded by the Nakdong River.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_hahoe">유네스코 세계유산</span>
+          <h3 class="gallery-name" data-i18n="spot_name_hahoe">안동 하회마을</h3>
+          <p class="spot-desc" data-i18n="spot_desc_hahoe">낙동강 줄기가 부드럽게 감싸 안고 있는 살아있는 조선 시대 전통 씨족 마을.</p>
         </div>
-        <div class="gallery-tip">📸 Panoramic view from Buyongdae Cliff.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_hahoe">📸 부용대 절벽 위에서 마을 전체 파노라마를 내려다보세요.</div>
       </article>
 
       <article class="gallery-card" data-city="andong">
         <div>
-          <span class="gallery-tag">Local Gourmet</span>
-          <h3 class="gallery-name">Andong Jjimdak Alley</h3>
-          <p class="spot-desc">Historic street food market famous for soy-braised chicken noodles.</p>
+          <span class="gallery-tag" data-i18n="spot_tag_jjim">로컬 미식</span>
+          <h3 class="gallery-name" data-i18n="spot_name_jjim">안동 찜닭 골목</h3>
+          <p class="spot-desc" data-i18n="spot_desc_jjim">매콤달콤한 특제 간장 양념과 당면이 푸짐한 원조 전통 시장 맛집 골목.</p>
         </div>
-        <div class="gallery-tip">📸 Top-down food snap of the steaming platter.</div>
+        <div class="gallery-tip" data-i18n="spot_tip_jjim">📸 김이 모락모락 나는 푸짐한 찜닭 접시를 항공샷으로 찍어보세요.</div>
       </article>
     </div>
   </div>
 
   <script>
-    function filterCity(city) {
+    function filterCity(city, evt) {
       const buttons = document.querySelectorAll('.chip-grid .chip-btn');
       buttons.forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      if (evt && evt.target) evt.target.classList.add('active');
 
       const cards = document.querySelectorAll('.gallery-card');
       cards.forEach(card => {
@@ -155,7 +160,6 @@
     }
   </script>
 
-  <!-- 다국어 지원 연동 스크립트 -->
   <script type="module">
     import { setupLanguageToggle } from './js/lang.js';
     document.addEventListener('DOMContentLoaded', setupLanguageToggle);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -103,11 +103,11 @@
   <nav class="site-nav">
     <a href="./index.html" class="nav-brand">🏯 K-Spot Trend</a>
     <ul class="nav-menu">
-      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI Curator</a></li>
-      <li><a href="./spots.html" class="nav-link" data-i18n="nav_spots">Spots Gallery</a></li>
-      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">Interactive Map</a></li>
-      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">Travel Guide</a></li>
-      <li><a href="./saved.html" class="nav-link active" data-i18n="nav_saved">My Routes</a></li>
+      <li><a href="./index.html" class="nav-link" data-i18n="nav_ai">AI 코스 추천</a></li>
+      <li><a href="./spots.html" class="nav-link" data-i18n="nav_spots">로컬 핫플</a></li>
+      <li><a href="./map.html" class="nav-link" data-i18n="nav_map">동선 지도</a></li>
+      <li><a href="./guide.html" class="nav-link" data-i18n="nav_guide">여행 가이드</a></li>
+      <li><a href="./saved.html" class="nav-link active" data-i18n="nav_saved">내 보관함</a></li>
     </ul>
 
     <!-- 언어 전환 버튼 -->
@@ -116,9 +116,9 @@
 
   <div class="app-container">
     <header class="site-header">
-      <div class="site-badge" data-i18n="saved_badge">📌 Bookmarks</div>
-      <h1 class="site-title" data-i18n="saved_title">Saved Curations</h1>
-      <p class="site-desc" data-i18n="saved_desc">Your favorite AI-generated local itineraries saved offline on your device.</p>
+      <div class="site-badge" data-i18n="saved_badge">📌 나만의 북마크</div>
+      <h1 class="site-title" data-i18n="saved_title">저장된 여행 코스</h1>
+      <p class="site-desc" data-i18n="saved_desc">AI가 추천해 준 코스 중 마음에 드는 일정을 오프라인으로 보관하세요.</p>
     </header>
 
     <div id="saved-container" class="saved-list-container">
@@ -126,70 +126,101 @@
     </div>
   </div>
 
-  <script>
-    const initialSaved = [
+  <script type="module">
+    import { setupLanguageToggle, getCurrentLang } from './js/lang.js';
+
+    const defaultSaved = [
       {
         id: "route-1",
-        city: "Gangneung",
-        theme: "K-Pop Ocean Breeze Tour",
+        city_ko: "강릉",
+        city_en: "Gangneung",
+        theme_ko: "K-Pop 오션 브리즈 감성 투어",
+        theme_en: "K-Pop Ocean Breeze Tour",
         date: "2026-03-01",
-        spots: "Jumunjin BTS Bus Stop ➔ Sacheon Beach ➔ Anmok Coffee Street"
+        spots_ko: "주문진 BTS 버스정류장 ➔ 사천해변 ➔ 안목해변 커피거리",
+        spots_en: "Jumunjin BTS Bus Stop ➔ Sacheon Beach ➔ Anmok Coffee Street"
       },
       {
         id: "route-2",
-        city: "Gyeongju",
-        theme: "Timeless Silla Night Walk",
+        city_ko: "경주",
+        city_en: "Gyeongju",
+        theme_ko: "천년 신라 감성 달빛 야경 산책",
+        theme_en: "Timeless Silla Night Walk",
         date: "2026-03-02",
-        spots: "Hwangridan-gil Alleys ➔ Daereungwon ➔ Donggung Palace & Wolji Pond"
+        spots_ko: "황리단길 한옥 골목 ➔ 대릉원 ➔ 동궁과 월지",
+        spots_en: "Hwangridan-gil Alleys ➔ Daereungwon ➔ Donggung Palace & Wolji Pond"
       }
     ];
 
     function loadSavedRoutes() {
       const container = document.getElementById('saved-container');
-      const savedData = JSON.parse(localStorage.getItem('kspot_saved_routes')) || initialSaved;
+      const lang = getCurrentLang() || 'ko';
+      const savedData = JSON.parse(localStorage.getItem('kspot_saved_routes')) || defaultSaved;
 
       if (!savedData || savedData.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
             <div class="empty-icon">📂</div>
-            <h3 class="empty-title">No Saved Routes Yet</h3>
-            <p class="empty-desc">Generate an AI course on the main page and bookmark it to review later.</p>
+            <h3 class="empty-title">${lang === 'ko' ? '저장된 코스가 없습니다' : 'No Saved Routes Yet'}</h3>
+            <p class="empty-desc">${lang === 'ko' ? '메인 화면에서 맞춤 1일 코스를 생성하고 북마크해 보세요.' : 'Generate an AI course on the main page and bookmark it to review later.'}</p>
             <a href="./index.html" class="submit-btn" style="display: inline-block; width: auto; padding: 0.75rem 1.5rem; text-decoration: none;">
-              Go to AI Curator ✨
+              ${lang === 'ko' ? '코스 추천받으러 가기 ✨' : 'Go to AI Curator ✨'}
             </a>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = savedData.map(item => `
-        <article class="saved-item-card" id="${item.id}">
-          <div>
-            <div class="saved-meta">${item.city} • Saved on ${item.date}</div>
-            <h3 class="saved-title">${item.theme}</h3>
-            <p class="saved-spots-summary">📍 ${item.spots}</p>
-          </div>
-          <div class="action-group">
-            <button class="btn-delete" onclick="deleteRoute('${item.id}')">Remove</button>
-          </div>
-        </article>
-      `).join('');
+      const isKo = lang === 'ko';
+      container.innerHTML = savedData.map(item => {
+        const cityName = isKo ? (item.city_ko || item.city) : (item.city_en || item.city);
+        const themeTitle = isKo ? (item.theme_ko || item.theme) : (item.theme_en || item.theme);
+        const spotsText = isKo ? (item.spots_ko || item.spots) : (item.spots_en || item.spots);
+        const metaSavedText = isKo ? '저장일' : 'Saved on';
+        const removeText = isKo ? '삭제' : 'Remove';
+
+        return `
+          <article class="saved-item-card" id="${item.id}">
+            <div>
+              <div class="saved-meta">${cityName} • ${metaSavedText} ${item.date}</div>
+              <h3 class="saved-title">${themeTitle}</h3>
+              <p class="saved-spots-summary">📍 ${spotsText}</p>
+            </div>
+            <div class="action-group">
+              <button class="btn-delete" data-id="${item.id}">${removeText}</button>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // 삭제 버튼 이벤트 바인딩
+      container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const targetId = e.target.getAttribute('data-id');
+          deleteRoute(targetId);
+        });
+      });
     }
 
     function deleteRoute(id) {
-      let savedData = JSON.parse(localStorage.getItem('kspot_saved_routes')) || initialSaved;
+      let savedData = JSON.parse(localStorage.getItem('kspot_saved_routes')) || defaultSaved;
       savedData = savedData.filter(item => item.id !== id);
       localStorage.setItem('kspot_saved_routes', JSON.stringify(savedData));
       loadSavedRoutes();
     }
 
-    loadSavedRoutes();
-  </script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setupLanguageToggle();
+      loadSavedRoutes();
 
-  <!-- 다국어 지원 연동 스크립트 -->
-  <script type="module">
-    import { setupLanguageToggle } from './js/lang.js';
-    document.addEventListener('DOMContentLoaded', setupLanguageToggle);
+      // 언어 토글 시 저장 목록 실시간 언어 갱신
+      const toggleBtn = document.getElementById('lang-toggle-btn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          setTimeout(loadSavedRoutes, 50);
+        });
+      }
+    });
   </script>
 </body>
 </html>
