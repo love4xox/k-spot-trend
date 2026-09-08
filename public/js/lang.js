@@ -34,6 +34,7 @@ export const dictionary = {
     loading_text: "현지인들이 아끼는 핫플레이스를 조화롭게 엮고 있습니다...",
     result_title: "추천 1일 코스",
     input_placeholder: "도시나 동네 직접 입력 (예: 수원 행궁동, 양양, 여수)",
+    btn_save_route: "📌 코스 저장하기",
 
     // 2. spots.html
     spots_badge: "📸 엄선된 로컬 디렉토리",
@@ -141,6 +142,7 @@ export const dictionary = {
     loading_text: "Curating hidden spots loved by locals...",
     result_title: "Curated 1-Day Course",
     input_placeholder: "Enter city or town (e.g. Suwon, Yangyang, Yeosu)",
+    btn_save_route: "📌 Save Route",
 
     // 2. spots.html
     spots_badge: "📸 Curated Directory",
