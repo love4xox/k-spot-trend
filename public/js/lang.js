@@ -153,3 +153,7 @@ export const dictionary = {
       applyLanguage(nextLang);
     });
   }
+
+  export function getCurrentLang() {
+    return currentLang;
+  }

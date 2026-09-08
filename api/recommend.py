@@ -28,6 +28,7 @@ def notify_discord(city: str, vibe: str, is_success: bool):
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
+        params = {}
         content_length = int(self.headers.get("Content-Length", 0))
         post_data = self.rfile.read(content_length).decode("utf-8")
 
@@ -35,9 +36,10 @@ class handler(BaseHTTPRequestHandler):
             params = json.loads(post_data) if post_data else {}
             city = params.get("city", "gangneung")
             vibe = params.get("vibe", "kpop")
+            lang = params.get("lang", "ko")
 
             base_spots = LOCAL_HOTSPOTS.get(city, [])
-            user_prompt = create_recommendation_prompt(city, vibe, base_spots)
+            user_prompt = create_recommendation_prompt(city, vibe, base_spots, lang)
 
             result_data = generate_route_with_gemini(SYSTEM_PROMPT, user_prompt)
             notify_discord(city, vibe, True)

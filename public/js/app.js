@@ -1,6 +1,6 @@
 import { fetchRecommendation } from './api.js';
 import { renderTimeline } from './render.js';
-import { setupLanguageToggle } from './lang.js';
+import { setupLanguageToggle, getCurrentLang } from './lang.js';
 
 let selectedVibe = 'kpop';
 
@@ -70,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     resultContainer.classList.remove('active');
 
     try {
-      const data = await fetchRecommendation(finalCity, selectedVibe);
+      const currentLang = getCurrentLang();
+      const data = await fetchRecommendation(finalCity, selectedVibe, currentLang);
       renderTimeline(data);
     } catch (err) {
       alert(`Recommendation failed: ${err.message}`);
