@@ -1,6 +1,11 @@
+# 🏯 K-Spot Trend (케이 스팟 트렌드)
+> **“AI가 당신의 여행 취향을 하나의 로컬 에디토리얼 매거진으로 편집한다.”**
+
+---
+
 ## 1. 서비스 명
 * **서비스 국/영문 명칭**: K-Spot Trend (한국의 숨은 트렌드를 걷다)
-* **슬로건**: "Explore Korea's Hidden Trends with AI Local Curation"
+* **슬로건**: “AI가 당신의 여행 취향을 하나의 로컬 에디토리얼 매거진으로 편집한다.”
 
 ---
 
@@ -135,4 +140,4 @@
 ---
 
 ## 11. 배포 주소
-* 🌟 **K-Spot Trend 공식 서비스**: [https://bias-archive-delta.vercel.app/](https://bias-archive-delta.vercel.app/)
+* 🌟 **K-Spot Trend 공식 서비스**: [https://k-spot-trend-7kz8kaw81-mind-mate1.vercel.app/](https://k-spot-trend-7kz8kaw81-mind-mate1.vercel.app/)
