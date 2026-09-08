@@ -15,24 +15,29 @@ export function renderTimeline(data) {
   if (resultTheme) resultTheme.textContent = data.vibe_theme || '';
 
   const spots = data.spots || [];
-  timelineList.innerHTML = spots.map((spot, idx) => `
-    <div class="timeline-item">
-      <div class="timeline-badge">${idx + 1}</div>
-      <div class="timeline-content">
-        <div class="spot-time">${spot.time || ''}</div>
-        <h3 class="spot-name">${spot.name || ''}</h3>
-        <p class="spot-desc">${spot.description || ''}</p>
-        ${spot.photo_tip ? `<div class="spot-tip">📸 ${spot.photo_tip}</div>` : ''}
+  if (timelineList) {
+    timelineList.innerHTML = spots.map((spot, idx) => `
+      <div class="timeline-item">
+        <div class="timeline-badge">${idx + 1}</div>
+        <div class="timeline-content">
+          <div class="spot-time">${spot.time || ''}</div>
+          <h3 class="spot-name">${spot.name || ''}</h3>
+          <p class="spot-desc">${spot.description || ''}</p>
+          ${spot.photo_tip ? `<div class="spot-tip">📸 ${spot.photo_tip}</div>` : ''}
+        </div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  }
 
-  resultContainer.classList.add('active');
+  if (resultContainer) {
+    resultContainer.classList.add('active');
+  }
 
-  // 저장 버튼 동작 연결
+  // 저장 버튼이 있을 때만 활성화 및 이벤트 연결
   if (saveBtn) {
+    saveBtn.style.display = 'inline-block';
     saveBtn.onclick = handleSaveRoute;
-    const lang = getCurrentLang() || 'ko';
+    const lang = (typeof getCurrentLang === 'function' ? getCurrentLang() : 'ko') || 'ko';
     saveBtn.textContent = lang === 'ko' ? '📌 코스 저장하기' : '📌 Save Route';
   }
 }
@@ -40,7 +45,7 @@ export function renderTimeline(data) {
 function handleSaveRoute() {
   if (!latestCourseData) return;
 
-  const lang = getCurrentLang() || 'ko';
+  const lang = (typeof getCurrentLang === 'function' ? getCurrentLang() : 'ko') || 'ko';
   const savedRoutes = JSON.parse(localStorage.getItem('kspot_saved_routes')) || [];
 
   const activeChip = document.querySelector('#city-group .chip-btn.active');
@@ -49,7 +54,7 @@ function handleSaveRoute() {
                    (activeChip ? activeChip.textContent.trim() : '추천 코스');
 
   const spotsSummary = (latestCourseData.spots || [])
-    .map(s => s.name.split('(')[0].trim())
+    .map(s => (s.name || '').split('(')[0].trim())
     .join(' ➔ ');
 
   const newRoute = {
@@ -57,9 +62,9 @@ function handleSaveRoute() {
     city: cityName,
     city_ko: cityName,
     city_en: cityName,
-    theme: latestCourseData.course_title,
-    theme_ko: latestCourseData.course_title,
-    theme_en: latestCourseData.course_title,
+    theme: latestCourseData.course_title || '추천 일정',
+    theme_ko: latestCourseData.course_title || '추천 일정',
+    theme_en: latestCourseData.course_title || 'Curated Route',
     date: new Date().toISOString().slice(0, 10),
     spots: spotsSummary,
     spots_ko: spotsSummary,
