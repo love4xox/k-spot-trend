@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="fav-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B1E1E"/>
+      <stop offset="100%" stop-color="#6A1313"/>
+    </linearGradient>
+  </defs>
+  <!-- 배경 둥근 사각 -->
+  <rect width="64" height="64" rx="14" fill="url(#fav-bg)"/>
+  
+  <!-- 전통 기와 처마 실루엣 -->
+  <path d="M12 28 C 22 28, 28 20, 32 17 C 36 20, 42 28, 52 28 C 50 30, 47 31, 45 31 L 19 31 C 17 31, 14 30, 12 28 Z" fill="#E5C158"/>
+  <rect x="20" y="32" width="24" height="4" rx="1" fill="#FFFFFF" opacity="0.9"/>
+  <!-- 궁궐 기둥/문 본체 -->
+  <path d="M22 36 L22 49 L42 49 L42 36 Z" fill="#FFFFFF"/>
+  <path d="M28 41 C 28 38.5, 36 38.5, 36 41 L 36 49 L 28 49 Z" fill="#8B1E1E"/>
+  
+  <!-- 트렌드 스파크 (Sparkle) -->
+  <path d="M46 12 Q 49 16, 53 16 Q 49 16, 46 20 Q 43 16, 39 16 Q 43 16, 46 12 Z" fill="#E5C158"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <filter id="pin-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <!-- 핀 바디 -->
+  <path d="M24 4 C14.06 4 6 12.06 6 22 C6 33.5 22 43.2 22.8 43.7 C23.5 44.1 24.5 44.1 25.2 43.7 C26 43.2 42 33.5 42 22 C42 12.06 33.94 4 24 4 Z" 
+        fill="#8B1E1E" 
+        filter="url(#pin-shadow)"/>
+  <!-- 내부 골드 링 -->
+  <circle cx="24" cy="21" r="9" fill="#FDFBF7"/>
+  <circle cx="24" cy="21" r="5" fill="#C59B27"/>
+  <circle cx="24" cy="21" r="2.5" fill="#8B1E1E"/>
+</svg>
